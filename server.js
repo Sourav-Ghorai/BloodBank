@@ -4,6 +4,7 @@ import colors from 'colors';
 import morgan from 'morgan';
 import cors from 'cors';
 import connectDB from './config/db.js';
+import authRoute from './routes/authRoute.js';
 
 const app = express();
 dotenv.config();
@@ -17,11 +18,7 @@ app.use(cors());
 app.use(morgan('dev'))
 
 //Routes
-app.get('/', (req, res)=>{
-   res.status(200).send({
-      message: "Hello from node",
-   })
-})
+app.use('/api/v1/auth', authRoute);
 
 //Server listening
 const PORT = process.env.PORT || 8080;
