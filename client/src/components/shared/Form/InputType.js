@@ -3,7 +3,7 @@ import React from "react";
 function InputType({ lableText, inputType, name, value, onChange }) {
   return (
     <div>
-      <div className="mb-3">
+      <div className="mb-1">
         <label htmlFor="exampleInputEmail1" className="form-label">
           {lableText}
         </label>
