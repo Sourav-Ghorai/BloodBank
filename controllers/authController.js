@@ -52,7 +52,7 @@ export const loginController = async (req, res) => {
       req.body.password,
       user.password
     );
-    
+
     if (!comparePassword) {
       return res.status(404).send({
         success: false,
@@ -74,6 +74,25 @@ export const loginController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error while Login",
+      error,
+    });
+  }
+};
+
+//Get current user
+export const currentUserController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.body.userId });
+    return res.status(201).send({
+      success: true,
+      message: "User fetched successfully",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting current user",
       error,
     });
   }
