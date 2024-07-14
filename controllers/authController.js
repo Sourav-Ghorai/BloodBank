@@ -40,11 +40,19 @@ export const registerController = async (req, res) => {
 //Login Controller
 export const loginController = async (req, res) => {
   try {
+   //finding user
     const user = await userModel.findOne({ email: req.body.email });
     if (!user) {
       return res.status(404).send({
         success: false,
         message: "Invalid Credential",
+      });
+    }
+    //role checking
+    if(user.role !== req.body.role){
+      return res.status(404).send({
+        success: false,
+        message: "Role doesn't match",
       });
     }
     //Compare Password
