@@ -9,8 +9,9 @@ export const userLogin = createAsyncThunk(
     try {
       const { data } = await API.post("/auth/login", { role, email, password });
       if (data.success) {
-        toast.success(data.message);
         localStorage.setItem("token", data.token);
+        window.location.replace("/");
+        toast.success(data.message);
       }
       return data;
     } catch (error) {
@@ -54,9 +55,10 @@ export const userRegister = createAsyncThunk(
       });
       if(data?.success){
          window.location.replace('/login')
-         // toast.success(data.message);
+         toast.success(data.message);
          alert("Registered Successfully")
       }
+      return data
     } catch (error) {
       console.log(error);
       if (error.response && error.response.data.message) {
@@ -67,3 +69,21 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
+
+//Get Current User
+export const getCurrentUser = createAsyncThunk(
+   'auth/getCurrentUser',
+   async({rejectWithValue})=>{
+      try {
+         const res = await API.get('/auth/current-user')
+         return res?.data;
+      } catch (error) {
+         console.log(error);
+         if (error.response && error.response.data.message) {
+           return rejectWithValue(error.response.data.message);
+         } else {
+           return rejectWithValue(error.message);
+         }
+      }
+   }
+)
