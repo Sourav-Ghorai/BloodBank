@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Spinner from "../components/shared/Spinner";
 import { toast } from "react-toastify";
+import Layout from "../components/shared/Layout/Layout";
 
 function HomePage() {
   const { loading, error } = useSelector((state) => state.auth);
@@ -11,7 +12,8 @@ function HomePage() {
       toast.error(error);
     }
   }, [error]);
-  return <>{loading ? <Spinner /> : <div>Home Page</div>}</>;
+
+  return <Layout>{loading ? <Spinner /> : <div>Home Page</div>}</Layout>;
 }
 
 export default HomePage;
