@@ -31,6 +31,10 @@ export const handleRegister = (
 ) => {
   e.preventDefault();
   try {
+   if (!role || !email || !password || !address || !phone) {
+     // return alert("Please Provide All Feilds");
+     return toast.error("Please provide all fields");
+   }
     store.dispatch(
       userRegister({
         role,
