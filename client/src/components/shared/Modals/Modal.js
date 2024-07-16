@@ -31,8 +31,9 @@ function Modal() {
         toast.success("Inventory added successfully");
       }
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
       window.location.reload();
+      console.log(error);
     }
   };
 
@@ -105,7 +106,9 @@ function Modal() {
                 aria-label="Default select example"
                 onChange={(e) => setBloodGroup(e.target.value)}
               >
-                <option selected>Select Blood Group</option>
+                <option defaultValue={"Select Blood Group"}>
+                  Select Blood Group
+                </option>
                 <option value={"A+"}>A+</option>
                 <option value={"A-"}>A-</option>
                 <option value={"B+"}>B+</option>
@@ -118,7 +121,7 @@ function Modal() {
 
               {/* Donar Email  */}
               <InputType
-                lableText="Donar Email"
+                lableText={inventoryType==='In'? "Donar Email" : "Hospital Email"}
                 inputType="email"
                 name="donarEmail"
                 value={donarEmail}
@@ -138,14 +141,14 @@ function Modal() {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-outline-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-success"
                 onClick={handleModalSubmit}
               >
                 Add
