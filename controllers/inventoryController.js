@@ -9,19 +9,22 @@ export const createInventoryController = async (req, res) => {
     const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(201).send({
-         success: false,
-         message: "User not Found"
-      })
+        success: false,
+        message: "User not Found",
+      });
     }
-     if (req.body.inventoryType === "In" && user.role !== "donar") {
-         return res.status(201).send({
-           success: false,
-           message: "Not a donar account",
-         });
+    if (req.body.inventoryType === "In" && user.role !== "donar") {
+      return res.status(201).send({
+        success: false,
+        message: "Not a donar account",
+      });
+    }
+     if (req.body.inventoryType === "Out" && user.role !== "hospital") {
+      return res.status(201).send({
+        success: false,
+        message: "Not a hospital account",
+      });
      }
-    //  if (inventoryType === "Out" && user.role !== "hospital") {
-    //    throw new Error("Not a hospital");
-    //  }
 
     if (req.body.inventoryType === "Out") {
       const requestedBloodGroup = bloodGroup;
@@ -79,14 +82,14 @@ export const createInventoryController = async (req, res) => {
       req.body.donar = user?._id;
     }
 
-     const inventory = new inventoryModel(req.body);
-     await inventory.save();
+    const inventory = new inventoryModel(req.body);
+    await inventory.save();
 
-     res.status(201).send({
-       success: true,
-       message: "Inventory created successfully",
-       inventory,
-     });
+    res.status(201).send({
+      success: true,
+      message: "Inventory created successfully",
+      inventory,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -120,3 +123,74 @@ export const getInventoryController = async (req, res) => {
     });
   }
 };
+
+//Get Donars
+export const getDonarController = async (req, res) => {
+ try {
+   const organization = req.body.userId;
+
+   // Fetch distinct donor IDs based on the organization
+   const donarIds = await inventoryModel.distinct("donar", { organization });
+   
+   // Ensure donarIds is not undefined or null
+   if (!donarIds || donarIds.length === 0) {
+     return res.status(404).send({
+       success: false,
+       message: "No donors found for the given organization",
+     });
+   }
+
+   // Fetch donor details from userModel using the distinct donor IDs
+   const donars = await userModel.find({ _id: { $in: donarIds } });
+   // console.log("Donors:", donars);
+
+   return res.status(200).send({
+     success: true,
+     message: "Donor Record Fetched Successfully",
+     donars,
+   });
+ } catch (error) {
+   console.log("Error:", error);
+   res.status(500).send({
+     success: false,
+     message: "Error in getting donors",
+     error,
+   });
+ }
+
+};
+
+//Get hospitals
+export const getHospitalController = async(req, res) => {
+   try {
+     const organization = req.body.userId;
+
+     //fetching hospital id
+     const hospitalId = await inventoryModel.distinct("hospital", {
+       organization,
+     });
+
+     // Ensure donarIds is not undefined or null
+     if (!hospitalId || hospitalId.length === 0) {
+       return res.status(404).send({
+         success: false,
+         message: "No hospital found for the given organization",
+       });
+     }
+
+     const hospitals = await userModel.find({ _id: { $in: hospitalId } });
+
+     return res.status(200).send({
+       success: true,
+       message: "Hospital Record Fetched Successfully",
+       hospitals,
+     });
+   } catch (error) {
+      console.log("Error:", error);
+      res.status(500).send({
+        success: false,
+        message: "Error in getting hospitals",
+        error,
+      });
+   }
+}

@@ -10,7 +10,7 @@
 }
 
 .menu-item {
-  padding-top: 30px;
+  padding-top: 25px;
 }
 
 .menu-item a {
@@ -25,7 +25,7 @@
   color: rgb(198, 238, 186);
 }
 .active {
-  background-color: white;
+  background-color: lightgray;
   padding: 10px;
   margin-top: 25px;
 }
