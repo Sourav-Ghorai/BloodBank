@@ -43,7 +43,7 @@ function Sidebar() {
             </>
           )}
 
-          {user?.role === "donar" && (
+          {(user?.role === "donar" || user?.role === 'hospital') && (
             <>
               <div
                 className={`menu-item ${

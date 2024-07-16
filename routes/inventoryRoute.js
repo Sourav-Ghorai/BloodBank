@@ -6,6 +6,7 @@ import {
   getHospitalController,
   getInventoryController,
   getOrganizationController,
+  getOrganizationForHospitalController,
 } from "../controllers/inventoryController.js";
 
 const router = express.Router();
@@ -24,5 +25,12 @@ router.get("/get-hospital", requireSignIn, getHospitalController);
 
 //Get Organization
 router.get("/get-organization", requireSignIn, getOrganizationController);
+
+//Get Organization for hospital
+router.get(
+  "/get-organization-for-hospital",
+  requireSignIn,
+  getOrganizationForHospitalController
+);
 
 export default router;

@@ -6,10 +6,14 @@ import Layout from "../components/shared/Layout/Layout";
 import Modal from "../components/shared/Modals/Modal";
 import API from "../services/API";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
-  const { loading, error } = useSelector((state) => state.auth);
+  const { user, loading, error } = useSelector((state) => state.auth);
   const [inventory, setInventory] = useState([]);
+
+//   const {user} = useSelector(state => state.auth)
+const navigate = useNavigate()
 
   const getInventory = async () => {
     try {
@@ -39,6 +43,9 @@ function HomePage() {
         <Spinner />
       ) : (
         <div className="container">
+         {/* If a donar then navigate to organization page  */}
+         {user?.role==='donar' && navigate('/organization')}
+         
           <h5
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
