@@ -8,7 +8,7 @@ function Modal() {
   const [inventoryType, setInventoryType] = useState("In");
   const [bloodGroup, setBloodGroup] = useState("");
   const [quantity, setQuantity] = useState(0);
-  const [donarEmail, setDonarEmail] = useState("");
+  const [email, setEmail] = useState("");
 
   const { user } = useSelector((state) => state.auth);
 
@@ -22,13 +22,14 @@ function Modal() {
         inventoryType,
         bloodGroup,
         quantity,
-        donarEmail,
-        email: user?.email,
+        email,
         organization: user?._id,
       });
       if (data?.success) {
         window.location.reload();
         toast.success("Inventory added successfully");
+      }else{
+          toast.error(data.message);
       }
     } catch (error) {
       alert(error.response.data.message);
@@ -121,11 +122,13 @@ function Modal() {
 
               {/* Donar Email  */}
               <InputType
-                lableText={inventoryType==='In'? "Donar Email" : "Hospital Email"}
+                lableText={
+                  inventoryType === "In" ? "Donar Email" : "Hospital Email"
+                }
                 inputType="email"
                 name="donarEmail"
-                value={donarEmail}
-                onChange={(e) => setDonarEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
 
               {/* Quantity */}

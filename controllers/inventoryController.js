@@ -5,19 +5,25 @@ import userModel from "../models/userModel.js";
 //Create a new inventory
 export const createInventoryController = async (req, res) => {
   try {
-    const { email, inventoryType, bloodGroup, quantity } = req.body;
+    const { email, bloodGroup, quantity } = req.body;
     const user = await userModel.findOne({ email });
     if (!user) {
-      throw new Error("User not found");
+      return res.status(201).send({
+         success: false,
+         message: "User not Found"
+      })
     }
-    //  if (inventoryType === "In" && user.role !== "donar") {
-    //    throw new Error("Not a donar account");
-    //  }
+     if (req.body.inventoryType === "In" && user.role !== "donar") {
+         return res.status(201).send({
+           success: false,
+           message: "Not a donar account",
+         });
+     }
     //  if (inventoryType === "Out" && user.role !== "hospital") {
     //    throw new Error("Not a hospital");
     //  }
 
-    if (inventoryType === "Out") {
+    if (req.body.inventoryType === "Out") {
       const requestedBloodGroup = bloodGroup;
       const requestedQuantityOfBloodGroup = quantity;
       const organization = new mongoose.Types.ObjectId(req.body.userId);
