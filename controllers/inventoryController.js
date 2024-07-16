@@ -19,12 +19,12 @@ export const createInventoryController = async (req, res) => {
         message: "Not a donar account",
       });
     }
-     if (req.body.inventoryType === "Out" && user.role !== "hospital") {
+    if (req.body.inventoryType === "Out" && user.role !== "hospital") {
       return res.status(201).send({
         success: false,
         message: "Not a hospital account",
       });
-     }
+    }
 
     if (req.body.inventoryType === "Out") {
       const requestedBloodGroup = bloodGroup;
@@ -126,71 +126,105 @@ export const getInventoryController = async (req, res) => {
 
 //Get Donars
 export const getDonarController = async (req, res) => {
- try {
-   const organization = req.body.userId;
+  try {
+    const organization = req.body.userId;
 
-   // Fetch distinct donor IDs based on the organization
-   const donarIds = await inventoryModel.distinct("donar", { organization });
-   
-   // Ensure donarIds is not undefined or null
-   if (!donarIds || donarIds.length === 0) {
-     return res.status(404).send({
-       success: false,
-       message: "No donors found for the given organization",
-     });
-   }
+    // Fetch distinct donor IDs based on the organization
+    const donarIds = await inventoryModel.distinct("donar", { organization });
 
-   // Fetch donor details from userModel using the distinct donor IDs
-   const donars = await userModel.find({ _id: { $in: donarIds } });
-   // console.log("Donors:", donars);
+    // Ensure donarIds is not undefined or null
+    if (!donarIds || donarIds.length === 0) {
+      return res.status(404).send({
+        success: false,
+        message: "No donors found for the given organization",
+      });
+    }
 
-   return res.status(200).send({
-     success: true,
-     message: "Donor Record Fetched Successfully",
-     donars,
-   });
- } catch (error) {
-   console.log("Error:", error);
-   res.status(500).send({
-     success: false,
-     message: "Error in getting donors",
-     error,
-   });
- }
+    // Fetch donor details from userModel using the distinct donor IDs
+    const donars = await userModel.find({ _id: { $in: donarIds } });
+    // console.log("Donors:", donars);
 
+    return res.status(200).send({
+      success: true,
+      message: "Donor Record Fetched Successfully",
+      donars,
+    });
+  } catch (error) {
+    console.log("Error:", error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting donors",
+      error,
+    });
+  }
 };
 
 //Get hospitals
-export const getHospitalController = async(req, res) => {
+export const getHospitalController = async (req, res) => {
+  try {
+    const organization = req.body.userId;
+
+    //fetching hospital id
+    const hospitalId = await inventoryModel.distinct("hospital", {
+      organization,
+    });
+
+    // Ensure donarIds is not undefined or null
+    if (!hospitalId || hospitalId.length === 0) {
+      return res.status(404).send({
+        success: false,
+        message: "No hospital found for the given organization",
+      });
+    }
+
+    const hospitals = await userModel.find({ _id: { $in: hospitalId } });
+
+    return res.status(200).send({
+      success: true,
+      message: "Hospital Record Fetched Successfully",
+      hospitals,
+    });
+  } catch (error) {
+    console.log("Error:", error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting hospitals",
+      error,
+    });
+  }
+};
+
+//Get Organizations
+export const getOrganizationController = async (req, res) => {
    try {
-     const organization = req.body.userId;
+      const donar = req.body.userId;
 
-     //fetching hospital id
-     const hospitalId = await inventoryModel.distinct("hospital", {
-       organization,
-     });
+      //fetching Organization id
+      const orgId = await inventoryModel.distinct("organization", {
+        donar,
+      });
 
-     // Ensure donarIds is not undefined or null
-     if (!hospitalId || hospitalId.length === 0) {
-       return res.status(404).send({
-         success: false,
-         message: "No hospital found for the given organization",
-       });
-     }
+      // Ensure donarIds is not undefined or null
+      if (!orgId || orgId.length === 0) {
+        return res.status(404).send({
+          success: false,
+          message: "No organizations found for the given organization",
+        });
+      }
 
-     const hospitals = await userModel.find({ _id: { $in: hospitalId } });
+      const organizations = await userModel.find({ _id: { $in: orgId } });
 
-     return res.status(200).send({
-       success: true,
-       message: "Hospital Record Fetched Successfully",
-       hospitals,
-     });
+      return res.status(200).send({
+        success: true,
+        message: "Hospital Record Fetched Successfully",
+        organizations,
+      });
    } catch (error) {
       console.log("Error:", error);
       res.status(500).send({
         success: false,
-        message: "Error in getting hospitals",
+        message: "Error in getting Organizations",
         error,
       });
    }
-}
+};
