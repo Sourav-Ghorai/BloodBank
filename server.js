@@ -7,6 +7,7 @@ import connectDB from './config/db.js';
 import authRoute from './routes/authRoute.js';
 import inventoryRoute from './routes/inventoryRoute.js';
 import analyticsRoute from './routes/analyticsRoute.js';
+import adminRoute from "./routes/adminRoute.js";
 
 const app = express();
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(morgan('dev'))
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/inventory', inventoryRoute);
 app.use("/api/v1/analytics", analyticsRoute);
+app.use("/api/v1/admin", adminRoute);
 
 //Server listening
 const PORT = process.env.PORT || 8080;

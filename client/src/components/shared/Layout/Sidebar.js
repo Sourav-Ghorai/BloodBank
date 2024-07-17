@@ -11,6 +11,7 @@ function Sidebar() {
     <div>
       <div className="sidebar">
         <div className="menu">
+          {/* If user role is organization */}
           {user?.role === "organization" && (
             <>
               <div
@@ -39,6 +40,39 @@ function Sidebar() {
               >
                 <i className="fa-solid fa-hospital"></i>
                 <Link to={"/hospital"}>Hospital</Link>
+              </div>
+            </>
+          )}
+
+          {/* If user role is admin */}
+          {user?.role === "admin" && (
+            <>
+              <div
+                className={`menu-item ${location.pathname === "/donar-list" && "active"}`}
+                key={"Inventory"}
+              >
+                <i className="fa-solid fa-warehouse"></i>
+                <Link to={"/donar-list"}>Donar List</Link>
+              </div>
+
+              <div
+                className={`menu-item ${
+                  location.pathname === "/hospital-list" && "active"
+                }`}
+                key={"Donar"}
+              >
+                <i className="fa-solid fa-hand-holding-medical"></i>
+                <Link to={"/hospital-list"}>Hospital List</Link>
+              </div>
+
+              <div
+                className={`menu-item ${
+                  location.pathname === "/org-list" && "active"
+                }`}
+                key={"Hospital"}
+              >
+                <i className="fa-solid fa-hospital"></i>
+                <Link to={"/org-list"}>Organization List</Link>
               </div>
             </>
           )}

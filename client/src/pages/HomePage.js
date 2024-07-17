@@ -43,6 +43,8 @@ const navigate = useNavigate()
         <Spinner />
       ) : (
         <div className="container">
+         {/* If Admin navigate to admin page  */}
+         {user?.role==='admin' && navigate('/admin')}
           {/* If a donar then navigate to organization page  */}
           {user?.role === "donar" && navigate("/organization")}
 
