@@ -2,12 +2,13 @@ import React from "react";
 import { BiSolidDonateBlood } from "react-icons/bi";
 import { LuUserCircle } from "react-icons/lu";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Handle logout function
   const handleLogout = () => {
@@ -31,6 +32,19 @@ function Header() {
                 <span className="badge bg-secondary">{user?.role}</span>
               </p>
             </li>
+            {location.pathname === "/" ? (
+              <li className="nav-item mx-3">
+                <Link to={"/analytics"} className="nav-link m-0">
+                  Analytics
+                </Link>
+              </li>
+            ) : (
+              <li className="nav-item mx-3">
+                <Link to={"/"} className="nav-link m-0">
+                  Home
+                </Link>
+              </li>
+            )}
             <li className="nav-item mx-3">
               <button className="btn btn-outline-danger" onClick={handleLogout}>
                 Logout

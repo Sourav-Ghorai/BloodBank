@@ -43,15 +43,17 @@ const navigate = useNavigate()
         <Spinner />
       ) : (
         <div className="container">
-         {/* If a donar then navigate to organization page  */}
-         {user?.role==='donar' && navigate('/organization')}
-         
+          {/* If a donar then navigate to organization page  */}
+          {user?.role === "donar" && navigate("/organization")}
+
           <h5
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
             style={{ cursor: "pointer" }}
+            className="d-flex"
           >
-            <i className="fa-solid fa-plus text-success py-4"></i> Add Inventory
+            <i className="fa-solid fa-plus text-success py-4"></i>{" "}
+            <span className="d-flex align-items-center justify-content-center ms-2">Add Inventory</span>
           </h5>
           <Modal />
 
