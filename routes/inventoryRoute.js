@@ -8,6 +8,7 @@ import {
   getInventoryHospitalController,
   getOrganizationController,
   getOrganizationForHospitalController,
+  getRecentBloodRecordController,
 } from "../controllers/inventoryController.js";
 
 const router = express.Router();
@@ -40,5 +41,7 @@ router.get(
   requireSignIn,
   getOrganizationForHospitalController
 );
+
+router.get("/recent-inventory", requireSignIn, getRecentBloodRecordController);
 
 export default router;

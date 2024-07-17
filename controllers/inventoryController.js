@@ -124,6 +124,29 @@ export const getInventoryController = async (req, res) => {
   }
 };
 
+//Get Recent Blood Record
+export const getRecentBloodRecordController = async (req, res) => {
+  try {
+   console.log(req.body.userId);
+    const inventory = await inventoryModel
+      .find({ organization: req.body.userId })
+      .limit(3)
+      .sort({ createdAt: -1 });
+      return res.status(200).send({
+        success: true,
+        message: "Recent Invenotry Data fetched Successfully",
+        inventory,
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting inventory",
+      error,
+    });
+  }
+};
+
 //Get Hospital Blood record inventory
 export const getInventoryHospitalController = async (req, res) => {
   try {
