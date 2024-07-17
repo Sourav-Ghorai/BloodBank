@@ -124,6 +124,31 @@ export const getInventoryController = async (req, res) => {
   }
 };
 
+//Get Hospital Blood record inventory
+export const getInventoryHospitalController = async (req, res) => {
+  try {
+    //  console.log(req.body);
+    const inventory = await inventoryModel
+      .find(req.body.filters)
+      .populate("donar")
+      .populate("hospital")
+      .populate("organization")
+      .sort({ createdAt: -1 });
+    res.status(201).send({
+      success: true,
+      message: "Got all hospital inventory successfully",
+      inventory,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting hospital inventory",
+      error,
+    });
+  }
+};
+
 //Get Donars
 export const getDonarController = async (req, res) => {
   try {
@@ -196,70 +221,70 @@ export const getHospitalController = async (req, res) => {
 
 //Get Organizations
 export const getOrganizationController = async (req, res) => {
-   try {
-      const donar = req.body.userId;
+  try {
+    const donar = req.body.userId;
 
-      //fetching Organization id
-      const orgId = await inventoryModel.distinct("organization", {
-        donar,
-      });
+    //fetching Organization id
+    const orgId = await inventoryModel.distinct("organization", {
+      donar,
+    });
 
-      // Ensure donarIds is not undefined or null
-      if (!orgId || orgId.length === 0) {
-        return res.status(404).send({
-          success: false,
-          message: "No organizations found for the given organization",
-        });
-      }
-
-      const organizations = await userModel.find({ _id: { $in: orgId } });
-
-      return res.status(200).send({
-        success: true,
-        message: "Hospital Record Fetched Successfully",
-        organizations,
-      });
-   } catch (error) {
-      console.log("Error:", error);
-      res.status(500).send({
+    // Ensure donarIds is not undefined or null
+    if (!orgId || orgId.length === 0) {
+      return res.status(404).send({
         success: false,
-        message: "Error in getting Organizations",
-        error,
+        message: "No organizations found for the given organization",
       });
-   }
+    }
+
+    const organizations = await userModel.find({ _id: { $in: orgId } });
+
+    return res.status(200).send({
+      success: true,
+      message: "Hospital Record Fetched Successfully",
+      organizations,
+    });
+  } catch (error) {
+    console.log("Error:", error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting Organizations",
+      error,
+    });
+  }
 };
 
 //Get organization for hospital
-export const getOrganizationForHospitalController = async(req,res) => {
-   try {
-     const hospital = req.body.userId;
+export const getOrganizationForHospitalController = async (req, res) => {
+  try {
+    const hospital = req.body.userId;
 
-     //fetching Organization id
-     const orgId = await inventoryModel.distinct("organization", {
-       hospital,
-     });
+    //fetching Organization id
+    const orgId = await inventoryModel.distinct("organization", {
+      hospital,
+    });
 
-     // Ensure donarIds is not undefined or null
-     if (!orgId || orgId.length === 0) {
-       return res.status(404).send({
-         success: false,
-         message: "No organizations found for the given organization",
-       });
-     }
+    // Ensure donarIds is not undefined or null
+    if (!orgId || orgId.length === 0) {
+      return res.status(404).send({
+        success: false,
+        message: "No organizations found for the given organization",
+      });
+    }
 
-     const organizations = await userModel.find({ _id: { $in: orgId } });
+    const organizations = await userModel.find({ _id: { $in: orgId } });
 
-     return res.status(200).send({
-       success: true,
-       message: "Hospital organization Record Fetched Successfully",
-       organizations,
-     });
-   } catch (error) {
-     console.log("Error:", error);
-     res.status(500).send({
-       success: false,
-       message: "Error in getting Organizations",
-       error,
-     });
-   }
-}
+    return res.status(200).send({
+      success: true,
+      message: "Hospital organization Record Fetched Successfully",
+      organizations,
+    });
+  } catch (error) {
+    console.log("Error:", error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting Organizations",
+      error,
+    });
+  }
+};

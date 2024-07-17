@@ -43,7 +43,7 @@ function Sidebar() {
             </>
           )}
 
-          {(user?.role === "donar" || user?.role === 'hospital') && (
+          {(user?.role === "donar" || user?.role === "hospital") && (
             <>
               <div
                 className={`menu-item ${
@@ -53,6 +53,32 @@ function Sidebar() {
               >
                 <i className="fa-sharp fa-solid fa-building-ngo"></i>
                 <Link to={"/organization"}>Organization</Link>
+              </div>
+            </>
+          )}
+          {user?.role === "hospital" && (
+            <>
+              <div
+                className={`menu-item ${
+                  location.pathname === "/consumer" && "active"
+                }`}
+                key={"Organization"}
+              >
+                <i className="fa-sharp fa-solid fa-building-ngo"></i>
+                <Link to={"/consumer"}>Consumer</Link>
+              </div>
+            </>
+          )}
+          {user?.role === "donar" && (
+            <>
+              <div
+                className={`menu-item ${
+                  location.pathname === "/donation" && "active"
+                }`}
+                key={"Organization"}
+              >
+                <i className="fa-sharp fa-solid fa-building-ngo"></i>
+                <Link to={"/donation"}>Donation</Link>
               </div>
             </>
           )}

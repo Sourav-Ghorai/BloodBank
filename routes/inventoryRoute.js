@@ -5,6 +5,7 @@ import {
   getDonarController,
   getHospitalController,
   getInventoryController,
+  getInventoryHospitalController,
   getOrganizationController,
   getOrganizationForHospitalController,
 } from "../controllers/inventoryController.js";
@@ -16,6 +17,13 @@ router.post("/create-inventory", requireSignIn, createInventoryController);
 
 //Get all inventory
 router.get("/get-inventory", requireSignIn, getInventoryController);
+
+//Get all hospital inventory
+router.post(
+  "/get-inventory-hospital",
+  requireSignIn,
+  getInventoryHospitalController
+);
 
 //Get donars
 router.get("/get-donar", requireSignIn, getDonarController);
