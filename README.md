@@ -1,62 +1,34 @@
-# 🌑 **SocialMeet**
+# 🩸 **BloodBank**
 
 BloodBank is a full-stack application built using the MERN stack (MongoDB, Express.js, React, Node.js). It streamlines the blood donation process by providing an easy-to-use platform for managing blood donations, donor information, and user roles.
 <!-- ### The site is currently running at [https://perfect-pear-yoke.cyclic.app/](https://perfect-pear-yoke.cyclic.app/) -->
 
 ## 📸 Some Clips
 
-#### Home Page <br/>
-
-<img src="./public/assets/ss6.png" alt="HomePage-Demo" width="350"/> <img src="./public/assets/ss7.png" alt="HomePage-Demo" width="350"/> <br/>
-
 #### Register & Login <br/>
 
-<img src="./public/assets/Register.png" alt="Register-Demo" height="350"/> <img src="./public/assets/Login.png" alt="Login-Demo" height="350"/> <img src="./public/assets/Light phone.png" alt="Cart-Demo" height="350"/> <img src="./public/assets/Dark Phone.png" alt="user dashboard-Demo" height="350"/> <br/>
+<img src="./public/assets/ss6.png" alt="HomePage-Demo" width="300"/> <img src="./public/assets/ss7.png" alt="HomePage-Demo" width="300"/> <img src="./public/assets/ss5.png" alt="HomePage-Demo" width="300"/><br/>
 
-#### Profile <br/>
+#### Other Pages <br/>
 
-<img src="./public/assets/Profile.png" alt="admin dashboard-Demo" width="350"/><br/>
+<img src="./public/assets/ss4.png" alt="HomePage-Demo" width="300"/> <img src="./public/assets/ss3.png" alt="HomePage-Demo" width="300"/> <img src="./public/assets/ss2.png" alt="HomePage-Demo" width="300"/> <br/>
+
+<img src="./public/assets/ss1.png" alt="HomePage-Demo" width="300"/>
 
 ## ✨ Features
 
-- **👤 User Authentication:** Users can register and log in. Passwords are hashed for security. JWT tokens are issued upon successful login for subsequent authenticated requests.
-- **📝 Create Posts:** Users can create posts to share updates, thoughts, and media content.
-- **❤️ Like Posts:** Users can like posts to show appreciation for content shared by others.
-- **💬 Comment on Posts:** Users can comment on posts to engage in discussions and interactions with other users.
-- **🧑‍🤝‍🧑 User Profiles:** Each user has a profile page displaying their information and activity.
-- **📷 File Uploads:** Support for uploading images and other media files with posts and profile pictures.
-- **📱 Responsive Design:** The application is optimized for various screen sizes, including desktop, tablet, and mobile devices.
-- **🌓 Theme Changing:** Seamlessly switch between light and dark themes to personalize browsing experience.
+- 🔒 User authentication and authorization
+- 📊 Dashboard for admin, organization, and hospital users
+- 👥 Depending on the role (admin, organization, hospital, donor), access different functionalities.
+- 🗄️ Manage donor and inventory records
+- 👤 Admins can manage all data, organizations can manage their own donors, and hospitals can view available blood inventory.
 
 ## 🛠️ Technologies Used
 
-### 💻 Frontend
-
-- React: A JavaScript library for building user interfaces.
-- Redux: A Predictable State Container for JS Apps.
-- Material-UI: A popular React UI framework.
-- Emotion: A library designed for writing CSS styles with JavaScript.
-- Formik: A library to help build forms in React, managing form state and validation.
-- Yup: A JavaScript schema builder for value parsing and validation.
-- Ant Design: A design system with values of Nature and Determinacy for better user experience of enterprise applications.
-- React Router: A collection of navigational components that compose declaratively with your application.
-- React Dropzone: A React component for creating an area for users to drag and drop files into.
-- React Hot Toast: Smokin' hot React notifications.
-- Axios: A promise-based HTTP client for the browser and node.js.
-- Web Vitals: A library for measuring several important web performance metrics.
-
-### 🌐 Backend
-
-- Node.js - JavaScript runtime for building server-side applications.
-- Express - Web application framework for Node.js for building APIs.
-- MongoDB - NoSQL database for storing product and user data.
-- Bcrypt - A library to help you hash passwords
-- Mongoose - Elegant mongodb object modeling for node.js
-- Jsonwebtoken - An implementation of JSON Web Tokens
-- Dotenv - A zero-dependency module that loads environment variables from a `.env` file into `process.env`
-- Cors - Package for providing a Connect/Express middleware that can be used to enable CORS with various options
-- Morgan - HTTP request logger middleware for node.js
-- Multer: Multer is a node.js middleware for handling `multipart/form-data`, which is primarily used for uploading files.
+- **Frontend**: React, Redux Toolkit, React Router, React Toastify
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Other**: JWT for authentication, bcrypt for password hashing
 
 ## 🏁 Getting Started
 
@@ -75,22 +47,20 @@ Before you begin, ensure you have met the following requirements:
 1. 🔽 Clone the repository:
 
    ```bash
-   git clone https://github.com/Sourav-Ghorai/SocialMeet.git
+   git clone https://github.com/Sourav-Ghorai/BloodBank.git
    ```
 
-2. 📂 Navigate into the directory:
+2. 📂 Navigate to the project directory:
 
    ```bash
-   cd SocialMeet
+   cd BloodBank
    ```
 
-3. 🌐 Install dependencies for both the frontend and backend:
+3. 🌐 Install dependencies for both client and server:
 
    ```bash
-   cd client
    npm install
-
-   cd ../Backend
+   cd client
    npm install
    ```
 
@@ -111,17 +81,17 @@ After installing the dependencies, you can run the application using the followi
   cd ../client
    npm start
 
-   cd ../Backend  
+  cd ..
    npm start
 
   ```
 
 Access the Application:
 
-Open your browser and navigate to http://localhost:3000 to access the SocialMeet application.
+Open your browser and navigate to http://localhost:3000 to access the BloodBank application.
 
 ## Contribution
 
-Contributions are welcome! If you'd like to contribute to SocialMeet, feel free to fork the repository, make your changes, and submit a pull request. Make sure to follow the project's coding guidelines and conventions.
+Contributions are welcome! If you'd like to contribute to BloodBank, feel free to fork the repository, make your changes, and submit a pull request. Make sure to follow the project's coding guidelines and conventions.
 
-**Thank you for choosing SocialMeet! Enjoy our service! 🙂**
+**Thank you for choosing BloodBank! Enjoy our service! 🙂**
